@@ -1,1 +1,389 @@
-Hello  World
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>计算器</title>
+	</head>
+	<style type="text/css">
+		td {
+			background: white;
+			text-align: center;
+			font-weight: bold;
+			border-radius: 10px;
+		}
+		
+		#a1 {
+			width: 198px;
+			height: 193px;
+			background: pink;
+			border-radius: 15px;
+		}
+		
+		#a2 {
+			color: black;
+			text-align: center;
+			font-size: 12px;
+			height: 15px;
+			font-weight: bold;
+		}
+		
+		#a3 {
+			margin-left: 13px;
+		}
+		
+		#a3 input {
+			text-align: right;
+			font-size: 25px;
+			width: 168px;
+			height: 26px;
+			color: pink;
+			border-radius: 10px;
+		}
+		
+		#a4 {
+			margin-left: 10px;
+			background: pink;
+			color: pink;
+		}
+		
+		#a4 input {
+			width: 30px;
+			text-align: center;
+			color: pink;
+			border-radius: 10px;
+		}
+	</style>
+
+	<body>
+		<div id="a1">
+			<div id="a2">
+				李光原的计算器
+			</div>
+			<div id="a3">
+				<input type="text" name="jieguo" id="jieguo" value="0" readonly="readonly" />
+			</div>
+			<div id="a4">
+				<table cellspacing="3px">
+					<form>
+						<tr>
+							<td><input type="button" name="←" id="←" value="←" onclick="cal(this)" /></td>
+							<td><input type="button" name="CE" id="CE" value="CE" onclick="cal(this)" /></td>
+							<td><input type="button" name="C" id="C" value="C" onclick="cal(this)" /></td>
+							<td><input type="button" name="±" id="±" value="±" onclick="cal(this)" /></td>
+							<td><input type="button" name="√" id="√" value="√" onclick="cal(this)" /></td>
+						</tr>
+						<tr>
+							<td><input type="button" name="7" id="7" value="7" onclick="cal(this)" /></td>
+							<td><input type="button" name="8" id="8" value="8" onclick="cal(this)" /></td>
+							<td><input type="button" name="9" id="9" value="9" onclick="cal(this)" /></td>
+							<td><input type="button" name="/" id="/" value="/" onclick="cal(this)" /></td>
+							<td><input type="button" name="%" id="%" value="%" onclick="cal(this)" /></td>
+						</tr>
+						<tr>
+							<td><input type="button" name="4" id="4" value="4" onclick="cal(this)" /></td>
+							<td><input type="button" name="5" id="5" value="5" onclick="cal(this)" /></td>
+							<td><input type="button" name="6" id="6" value="6" onclick="cal(this)" /></td>
+							<td><input type="button" name="*" id="*" value="*" onclick="cal(this)" /></td>
+							<td><input type="button" name="1/x" id="1/x" value="1/x" onclick="cal(this)" /></td>
+						</tr>
+						<tr>
+							<td><input type="button" name="1" id="1" value="1" onclick="cal(this)" /></td>
+							<td><input type="button" name="2" id="2" value="2" onclick="cal(this)" /></td>
+							<td><input type="button" name="3" id="3" value="3" onclick="cal(this)" /></td>
+							<td><input type="button" name="-" id="-" value="-" onclick="cal(this)" /></td>
+							<td rowspan="2"><input type="button" name="=" id="=" value="=" style="height: 47px;" onclick="cal(this)" /></td>
+						</tr>
+						<tr>
+							<td colspan="2"><input type="button" name="0" id="0" value="0" style="width: 65px;" onclick="cal(this)" /></td>
+							<td><input type="button" name="." id="." value="." onclick="cal(this)" /></td>
+							<td><input type="button" name="+" id="+" value="+" onclick="cal(this)" /></td>
+						</tr>
+					</form>
+				</table>
+			</div>
+		</div>
+		<script>
+			var jieguo = "";
+			var jieguo1 = 0;
+			var jieguo2 = 0;
+			var jieguo4 = "0"
+			var yunsuan = "";
+			var a = 0;
+			var yunsuan2 = "";
+
+			function cal(dongzuo) {
+
+				switch(dongzuo.value) {
+					case "←":
+						if(jieguo == "") {
+							document.getElementById("jieguo").value = jieguo4;
+							break;
+						}
+						jieguo = jieguo.substring(0, jieguo.length - 1);
+						if(jieguo == "") {
+							document.getElementById("jieguo").value = jieguo4;
+							break;
+						}
+						document.getElementById("jieguo").value = jieguo;
+						break;
+
+					case "CE":
+						jieguo = "";
+						jieguo1 = 0;
+						yunsuan = "";
+						yunsuan2 = "";
+						document.getElementById("jieguo").value = jieguo4;
+						break;
+
+					case "C":
+						jieguo = "";
+						jieguo1 = 0;
+						yunsuan = "";
+						yunsuan2 = "";
+						document.getElementById("jieguo").value = jieguo4;
+						break;
+
+					case "±":
+						jieguo = "";
+						jieguo1 = 0;
+						yunsuan = "";
+						yunsuan2 = "";
+						document.getElementById("jieguo").value = jieguo4;
+						break;
+
+					case "√":
+						if(jieguo != "") {
+							for(a = 0; a <= 999; a = a + 1) {
+								if(a * a == parseFloat(jieguo)) {
+									break;
+								}
+							}
+							if(a == 1000) {
+								a = "结果不是整数或者数字超出运算范围";
+							}
+							jieguo = a;
+							document.getElementById("jieguo").value = jieguo;
+						}
+						break;
+
+					case "7":
+						jieguo += "7";
+						document.getElementById("jieguo").value = jieguo;
+						break;
+
+					case "8":
+						jieguo += "8";
+						document.getElementById("jieguo").value = jieguo;
+						break;
+
+					case "9":
+						jieguo += "9";
+						document.getElementById("jieguo").value = jieguo;
+						break;
+
+					case "/":
+						if(yunsuan == "+") {
+							jieguo = parseFloat(jieguo1) + parseFloat(jieguo);
+						}
+						if(yunsuan == "-") {
+							jieguo = parseFloat(jieguo1) - parseFloat(jieguo);
+						}
+						if(yunsuan == "*") {
+							jieguo = parseFloat(jieguo1) * parseFloat(jieguo);
+						}
+						if(yunsuan == "/") {
+							jieguo = parseFloat(jieguo1) / parseFloat(jieguo);
+						}
+						if(jieguo == "") {
+							break;
+						}
+						document.getElementById("jieguo").value = jieguo;
+						yunsuan = "/"
+						jieguo1 = parseFloat(jieguo);
+						jieguo = "";
+						break;
+
+					case "%":
+						jieguo = "";
+						jieguo1 = "";
+						yunsuan = "";
+						yunsuan2 = "";
+						document.getElementById("jieguo").value = jieguo4;
+						break
+
+					case "4":
+						jieguo += "4";
+						document.getElementById("jieguo").value = jieguo;
+						break;
+
+					case "5":
+						jieguo += "5";
+						document.getElementById("jieguo").value = jieguo;
+						break;
+
+					case "6":
+						jieguo += "6";
+						document.getElementById("jieguo").value = jieguo;
+						break;
+					case "*":
+						if(yunsuan == "+") {
+							jieguo = parseFloat(jieguo1) + parseFloat(jieguo);
+						}
+						if(yunsuan == "-") {
+							jieguo = parseFloat(jieguo1) - parseFloat(jieguo);
+						}
+						if(yunsuan == "*") {
+							jieguo = parseFloat(jieguo1) * parseFloat(jieguo);
+						}
+						if(yunsuan == "/") {
+							jieguo = parseFloat(jieguo1) / parseFloat(jieguo);
+						}
+						if(jieguo == "") {
+							break;
+						}
+						yunsuan = "*";
+						document.getElementById("jieguo").value = jieguo;
+						jieguo1 = parseFloat(jieguo);
+						jieguo = "";
+						break;
+
+					case "1/x":
+						jieguo = 1 / (parseFloat(jieguo));
+						document.getElementById("jieguo").value = jieguo;
+						break;
+
+					case "1":
+						jieguo += "1";
+						document.getElementById("jieguo").value = jieguo;
+						break;
+
+					case "2":
+						jieguo += "2";
+						document.getElementById("jieguo").value = jieguo;
+						break;
+
+					case "3":
+						jieguo += "3";
+						document.getElementById("jieguo").value = jieguo;
+						break;
+
+					case "-":
+
+						if(yunsuan == "+") {
+							jieguo = parseFloat(jieguo1) + parseFloat(jieguo);
+						}
+						if(yunsuan == "-") {
+							jieguo = parseFloat(jieguo1) - parseFloat(jieguo);
+						}
+						if(yunsuan == "*") {
+							jieguo = parseFloat(jieguo1) * parseFloat(jieguo);
+						}
+						if(yunsuan == "/") {
+							jieguo = parseFloat(jieguo1) / parseFloat(jieguo);
+						}
+						if(jieguo == "") {
+							break;
+						}
+						yunsuan = "-";
+						document.getElementById("jieguo").value = jieguo;
+						jieguo1 = parseFloat(jieguo);
+						jieguo = "";
+						break;
+
+					case "+":
+						if(yunsuan == "+") {
+							jieguo = parseFloat(jieguo1) + parseFloat(jieguo);
+						}
+						if(yunsuan == "-") {
+							jieguo = parseFloat(jieguo1) - parseFloat(jieguo);
+						}
+						if(yunsuan == "*") {
+							jieguo = parseFloat(jieguo1) * parseFloat(jieguo);
+						}
+						if(yunsuan == "/") {
+							jieguo = parseFloat(jieguo1) / parseFloat(jieguo);
+						}
+						if(jieguo == "") {
+							break;
+						}
+						yunsuan = "+"
+						document.getElementById("jieguo").value = jieguo;
+						jieguo1 = parseFloat(jieguo);
+						jieguo = "";
+						break;
+
+					case "0":
+						if(jieguo == "0") {
+							break;
+						}
+						if(jieguo == "") {
+							document.getElementById("jieguo").value = 0;
+							break;
+						}
+						jieguo += "0";
+						document.getElementById("jieguo").value = jieguo;
+						break;
+
+					case ".":
+						if(yunsuan2 == ".") {
+							break;
+						}
+						yunsuan2 = ".";
+						if(jieguo == "") {
+							jieguo = "0" + "."
+							document.getElementById("jieguo").value = jieguo;
+							break;
+						}
+						jieguo += ".";
+						document.getElementById("jieguo").value = jieguo;
+						break;
+
+					case "=":
+						if(jieguo1 == 0) {
+							if(jieguo == "") {
+								document.getElementById("jieguo").value = jieguo1;
+								break;
+							}
+							document.getElementById("jieguo").value = jieguo;
+							break;
+						}
+						if(jieguo == "") {
+							document.getElementById("jieguo").value = jieguo1;
+							break;
+						}
+						if(yunsuan == "+") {
+							jieguo = parseFloat(jieguo1) + parseFloat(jieguo);
+						}
+						if(yunsuan == "-") {
+							jieguo = parseFloat(jieguo1) - parseFloat(jieguo);
+						}
+						if(yunsuan == "/") {
+							jieguo = parseFloat(jieguo1) / parseFloat(jieguo);
+						}
+						if(yunsuan == "*") {
+							jieguo = parseFloat(jieguo1) * parseFloat(jieguo);
+						}
+						if(yunsuan == "(") {
+							document.getElementById("jieguo").value = jieguo;
+							break;
+						}
+						if(yunsuan == "") {
+							jieguo5 = 0;
+							document.getElementById("jieguo").value = jieguo5;
+							break;
+						}
+						yunsuan = "(";
+
+						document.getElementById("jieguo").value = jieguo;
+						break;
+
+					default:
+						break;
+				}
+
+			}
+		</script>
+	</body>
+
+</html>
