@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="{CHARSET}">
+		<title></title>
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<script>
+			window.onload = function() {
+				var app = new Vue({
+					el: "#root",
+					data: {
+						tupian: ["<img src='images/img1.jpg'>", "<img src='images/img2.jpg'>", "<img src='images/img3.jpg'>", "<img src='images/img4.jpg'>", "<img src='images/img5.jpg'>"],
+						yuankuai: ['', '', '', '', ''],
+						cur: 0,
+						bianda: false
+					}
+
+				});
+
+				function lunbo() {
+					if(app.cur < app.tupian.length-1) {
+						app.cur++
+					} else {
+						app.cur = 0;
+					}
+					setTimeout(lunbo, 2000);
+				}
+				lunbo()
+			}
+		</script>
+		<style type="text/css">
+			#root {
+				position: relative;
+				border: 100px solid pink;
+				width: 400px;
+				height: 300px;
+			}
+			
+			.yuankuai {
+				background-color: gray;
+				width: 10px;
+				height: 10px;
+				margin: 10px;
+				float: left;
+				border-radius: 10px;
+			}
+			
+			.xuanzhong {
+				position: absolute;
+				left: 120px;
+				top: 260px;
+			}
+			
+			div img {
+				width: 400px;
+				height: 300px;
+			}
+			
+			.yuankuai1 {
+				background-color: white;
+			}
+			
+			#left {
+				position: absolute;
+				left: 0px;
+				top: 130px;
+				background: gainsboro;
+				border: 0px;
+				opacity: 0.6;
+			}
+			
+			#right {
+				position: absolute;
+				left: 360px;
+				top: 130px;
+				background-color: gainsboro;
+				border: 0px;
+				opacity: 0.6;
+			}
+			
+			.biandaba {
+				width: 80px;
+				height: 800px;
+			}
+			
+			#tupian {
+				overflow: hidden;
+			}
+			.bianhua{
+				-webkit-filter: grayscale(50%);
+				
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="root">
+			<div>
+				<div id="tupian" v-for="(v,i) in tupian" class="bianhua" v-show="cur===i" v-html="tupian[i]"> {{tupian[i]}}</div>
+			</div>
+			<div class="xuanzhong">
+				<div v-for="(v,i) in yuankuai" @mouseover="cur=i" class="yuankuai" :class="{yuankuai1:cur==i}">{{v}}</div>
+			</div>
+			<div id="left"><input type="image" src="images/left.png" name="" id="" value="" @click="cur==0? cur=tupian.length-1:cur--" /></div>
+			<div id="right"><input type="image" src="images/right.png" name="" id="" value="" @click="cur==tupian.length-1? cur=0:cur++" /></div>
+		</div>
+	</body>
+
+</html>
