@@ -3,387 +3,306 @@
 
 	<head>
 		<meta charset="UTF-8">
-		<title>计算器</title>
+		<title></title>
 	</head>
 	<style type="text/css">
-		td {
-			background: white;
+		#max {
+			background-color: gray;
+			height: 1500px;
+			height: 850px;
+		}
+		
+		#yonghu {
+			padding-top: 20px;
+			padding-left: 10px;
+			text-align: left;
+			width: 250px;
+			height: 780px;
+			float: left;
+			background-color: black;
+			border: 10px solid gray;
+		}
+		
+		#youxiqu {
+			background-color: black;
+			float: left;
+			width: 1000px;
+			height: 800px;
+			border: 10px solid gray;
+			position: relative;
+		}
+		
+		#caozuozhinan {
+			float: left;
+			width: 400px;
+			height: 800px;
+			background-color: black;
+			border: 10px solid gray;
+		}
+		
+		#aaa {
+			clear: both;
+		}
+		
+		#bbb {
+			width: 99.7%;
+			height: 99.6%;
+			border: 2px solid chocolate;
+		}
+		
+		#tou {
+			width: 20px;
+			height: 20px;
+			position: absolute;
+			left: 80px;
+			top: 20px;
+			background-color: yellow;
+			border-radius: 6px;
+		}
+		
+		#shenti1 {
+			width: 20px;
+			height: 20px;
+			position: absolute;
+			left: 60px;
+			top: 20px;
+			background-color: white;
+			border-radius: 6px;
+		}
+		
+		#shenti2 {
+			width: 20px;
+			height: 20px;
+			position: absolute;
+			left: 40px;
+			top: 20px;
+			background-color: white;
+			border-radius: 6px;
+		}
+		
+		div {
+			color: white;
 			text-align: center;
 			font-weight: bold;
-			border-radius: 10px;
+			/*font-family: "微软雅黑";*/
 		}
 		
-		#a1 {
-			width: 198px;
-			height: 193px;
-			background: pink;
-			border-radius: 15px;
-		}
-		
-		#a2 {
-			color: black;
-			text-align: center;
-			font-size: 12px;
-			height: 15px;
-			font-weight: bold;
-		}
-		
-		#a3 {
-			margin-left: 13px;
-		}
-		
-		#a3 input {
-			text-align: right;
-			font-size: 25px;
-			width: 168px;
-			height: 26px;
-			color: pink;
-			border-radius: 10px;
-		}
-		
-		#a4 {
-			margin-left: 10px;
-			background: pink;
-			color: pink;
-		}
-		
-		#a4 input {
-			width: 30px;
-			text-align: center;
-			color: pink;
-			border-radius: 10px;
+		#shiwu {
+			position: absolute;
+			background-color: pink;
+			width: 20px;
+			height: 20px;
+			display: none;
 		}
 	</style>
+	<script src="js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript">
+		var arr = [
+			[3, 1, "black"],
+			[2, 1, "violet"],
+			[1, 1, "violet"]
+
+		]
+		var jifen = 0;
+		var swleft;
+		var swtop;
+		var t1;
+		var zhiling = right1;
+		var pdyundong = false;
+		document.onkeydown = function(even) {
+			var e = even
+			switch(e.keyCode) {
+				case 13:
+					console.log(pdyundong)
+					if(pdyundong) {} else {
+						yundong1();
+					}
+					shiwu();
+					break;
+				case 38:
+					up1()
+					break;
+				case 40:
+					down1()
+					break;
+				case 37:
+					left1()
+					break;
+				case 39:
+					right1()
+					break;
+				case 66:
+					console.log(pdyundong)
+					if(pdyundong) {
+						stop();
+						pdyundong = false;
+					} else {
+						yundong1();
+					}
+					break;
+
+				default:
+					break;
+			}
+		}
+
+		function up1() {
+			if(zhiling != down1) {
+				zhiling = up1;
+			}
+		}
+
+		function down1() {
+			if(zhiling != up1) {
+				zhiling = down1;
+			}
+		}
+
+		function right1() {
+			if(zhiling != left1) {
+				zhiling = right1;
+			}
+		}
+
+		function left1() {
+			if(zhiling != right1) {
+				zhiling = left1;
+			}
+		}
+
+		function stop() {
+			clearTimeout(t1);
+		}
+
+		function yundong1() {
+			pdyundong = true;
+			//判断撞到墙壁
+			if(arr[0][0] == swleft && arr[0][1] == swtop) {
+				arr.push([
+					[0, 0, "violet"]
+				])
+				shiwu();
+				shentizengchang();
+				jifen++;
+				$(".defen").html(jifen)
+			}
+
+			for(var i = arr.length - 1; i > 0; i--) {
+				arr[i][0] = arr[i - 1][0];
+				arr[i][1] = arr[i - 1][1];
+			}
+
+			if(zhiling == right1) {
+				arr[0][0] = arr[0][0] + 1;
+			}
+			if(zhiling == left1) {
+				arr[0][0] = arr[0][0] - 1;
+			}
+			if(zhiling == up1) {
+				arr[0][1] = arr[0][1] - 1;
+			}
+			if(zhiling == down1) {
+				arr[0][1] = arr[0][1] + 1
+			}
+
+			document.getElementById("shenti1").style.left = arr[1][0] * 20 + "px";
+			document.getElementById("shenti1").style.top = arr[1][1] * 20 + "px";
+			document.getElementById("shenti2").style.left = arr[2][0] * 20 + "px";
+			document.getElementById("shenti2").style.top = arr[2][1] * 20 + "px";
+			//查找有多少节身体，循环赋值
+			var shenti = document.getElementsByClassName("shenti");
+			for(var i = 0; i < shenti.length; i++) {
+				shenti[i].style.left = arr[i + 3][0] * 20 + "px";
+				shenti[i].style.top = arr[i + 3][1] * 20 + "px";
+			}
+			document.getElementById("tou").style.left = arr[0][0] * 20 + "px";
+			document.getElementById("tou").style.top = arr[0][1] * 20 + "px";
+			t1 = setTimeout(yundong1, 100)
+			if(arr[0][0] > 50 || arr[0][0] < 0 || arr[0][1] < 0 || arr[0][1] > 40) {
+				stop();
+				var jieguo = confirm("游戏结束，您得分：" + jifen)
+				console.log(jieguo);
+				if(jieguo) {
+					fuyuan();
+				}
+			} //判断撞到自己
+			for(var i = 1; i < arr.length; i++) {
+				console.log(arr[0][0] == arr[i][0] && arr[0][1] == arr[i][1])
+				if(arr[0][0] == arr[i][0] && arr[0][1] == arr[i][1]) {
+					stop();
+					break;
+				}
+			}
+		}
+
+		function fuyuan() {
+			$("#shenti").nextAll().remove();
+			stop();
+			var arr = [
+				[3, 1, "black"],
+				[2, 1, "violet"],
+				[1, 1, "violet"]
+			]
+			document.getElementById("shenti1").style.left = arr[1][0] * 20 + "px";
+			document.getElementById("shenti1").style.top = arr[1][1] * 20 + "px";
+			document.getElementById("shenti2").style.left = arr[2][0] * 20 + "px";
+			document.getElementById("shenti2").style.top = arr[2][1] * 20 + "px";
+			document.getElementById("tou").style.left = arr[0][0] * 20 + "px";
+			document.getElementById("tou").style.top = arr[0][1] * 20 + "px";
+		}
+
+		function shiwu() {
+			swleft = parseInt(Math.random() * 50)
+			swtop = parseInt(Math.random() * 40)
+			document.getElementById("shiwu").style.display = "block"
+			document.getElementById("shiwu").style.left = swleft * 20 + "px";
+			document.getElementById("shiwu").style.top = swtop * 20 + "px";
+		}
+
+		function shentizengchang() {
+			var newshenti = $(
+				"<div class='shenti' style=' position: absolute; width: 20px; height: 20px;  background-color: white; border-radius: 6px;'></div>"
+			)
+			$("#shenti").append(newshenti);
+		}
+	</script>
 
 	<body>
-		<div id="a1">
-			<div id="a2">
-				李光原的计算器
+		<div id="max">
+			<div id="yonghu">
+				用户名:<span class="username"></span><input type="text" name="" id="" value="" style="border: 0px; width: 60px; background-color: black; color: white;" /> 已得积分:<span class="defen"></span>
 			</div>
-			<div id="a3">
-				<input type="text" name="jieguo" id="jieguo" value="0" readonly="readonly" />
+			<div id="youxiqu">
+				<div id="tou">
+
+				</div>
+				<div id="shenti1">
+
+				</div>
+				<div id="shenti2">
+
+				</div>
+				<div id="shenti">
+
+				</div>
+				<div id="shiwu">
+
+				</div>
 			</div>
-			<div id="a4">
-				<table cellspacing="3px">
-					<form>
-						<tr>
-							<td><input type="button" name="←" id="←" value="←" onclick="cal(this)" /></td>
-							<td><input type="button" name="CE" id="CE" value="CE" onclick="cal(this)" /></td>
-							<td><input type="button" name="C" id="C" value="C" onclick="cal(this)" /></td>
-							<td><input type="button" name="±" id="±" value="±" onclick="cal(this)" /></td>
-							<td><input type="button" name="√" id="√" value="√" onclick="cal(this)" /></td>
-						</tr>
-						<tr>
-							<td><input type="button" name="7" id="7" value="7" onclick="cal(this)" /></td>
-							<td><input type="button" name="8" id="8" value="8" onclick="cal(this)" /></td>
-							<td><input type="button" name="9" id="9" value="9" onclick="cal(this)" /></td>
-							<td><input type="button" name="/" id="/" value="/" onclick="cal(this)" /></td>
-							<td><input type="button" name="%" id="%" value="%" onclick="cal(this)" /></td>
-						</tr>
-						<tr>
-							<td><input type="button" name="4" id="4" value="4" onclick="cal(this)" /></td>
-							<td><input type="button" name="5" id="5" value="5" onclick="cal(this)" /></td>
-							<td><input type="button" name="6" id="6" value="6" onclick="cal(this)" /></td>
-							<td><input type="button" name="*" id="*" value="*" onclick="cal(this)" /></td>
-							<td><input type="button" name="1/x" id="1/x" value="1/x" onclick="cal(this)" /></td>
-						</tr>
-						<tr>
-							<td><input type="button" name="1" id="1" value="1" onclick="cal(this)" /></td>
-							<td><input type="button" name="2" id="2" value="2" onclick="cal(this)" /></td>
-							<td><input type="button" name="3" id="3" value="3" onclick="cal(this)" /></td>
-							<td><input type="button" name="-" id="-" value="-" onclick="cal(this)" /></td>
-							<td rowspan="2"><input type="button" name="=" id="=" value="=" style="height: 47px;" onclick="cal(this)" /></td>
-						</tr>
-						<tr>
-							<td colspan="2"><input type="button" name="0" id="0" value="0" style="width: 65px;" onclick="cal(this)" /></td>
-							<td><input type="button" name="." id="." value="." onclick="cal(this)" /></td>
-							<td><input type="button" name="+" id="+" value="+" onclick="cal(this)" /></td>
-						</tr>
-					</form>
-				</table>
+			<div id="caozuozhinan">
+				<input type="button" onclick="yundong1()" name="" id="" value="跑/Enter" style="width: 90px; height: 70px;" />
+				<input type="button" onclick="stop()" name="" id="" value="开始/Enter" style="width: 100px; height: 70px;" /><br>
+				<input type="button" onclick="up1()" name="" id="" value="↑" style="width: 70px; height: 70px;" /><br>
+				<input type="button" onclick="left1()" name="" id="" value="←" style="width: 70px; height: 70px;" />
+				<input type="button" onclick="down1()" name="" id="" value="↓" style="width: 70px; height: 70px;" />
+				<input type="button" onclick="right1()" name="" id="" value="→" style="width: 70px; height: 70px;" /><br>
+				<span style="color: white; background-color: #000000; border: 0px;" />可键盘操作</span>
+				<br><input type="button" name="" id="" value="暂停/b" style=" font-size: 20px; width: 120px; height: 70px;" />
+			</div>
+			<div id="aaa">
+
 			</div>
 		</div>
-		<script>
-			var jieguo = "";
-			var jieguo1 = 0;
-			var jieguo2 = 0;
-			var jieguo4 = "0"
-			var yunsuan = "";
-			var a = 0;
-			var yunsuan2 = "";
-
-			function cal(dongzuo) {
-
-				switch(dongzuo.value) {
-					case "←":
-						if(jieguo == "") {
-							document.getElementById("jieguo").value = jieguo4;
-							break;
-						}
-						jieguo = jieguo.substring(0, jieguo.length - 1);
-						if(jieguo == "") {
-							document.getElementById("jieguo").value = jieguo4;
-							break;
-						}
-						document.getElementById("jieguo").value = jieguo;
-						break;
-
-					case "CE":
-						jieguo = "";
-						jieguo1 = 0;
-						yunsuan = "";
-						yunsuan2 = "";
-						document.getElementById("jieguo").value = jieguo4;
-						break;
-
-					case "C":
-						jieguo = "";
-						jieguo1 = 0;
-						yunsuan = "";
-						yunsuan2 = "";
-						document.getElementById("jieguo").value = jieguo4;
-						break;
-
-					case "±":
-						jieguo = "";
-						jieguo1 = 0;
-						yunsuan = "";
-						yunsuan2 = "";
-						document.getElementById("jieguo").value = jieguo4;
-						break;
-
-					case "√":
-						if(jieguo != "") {
-							for(a = 0; a <= 999; a = a + 1) {
-								if(a * a == parseFloat(jieguo)) {
-									break;
-								}
-							}
-							if(a == 1000) {
-								a = "结果不是整数或者数字超出运算范围";
-							}
-							jieguo = a;
-							document.getElementById("jieguo").value = jieguo;
-						}
-						break;
-
-					case "7":
-						jieguo += "7";
-						document.getElementById("jieguo").value = jieguo;
-						break;
-
-					case "8":
-						jieguo += "8";
-						document.getElementById("jieguo").value = jieguo;
-						break;
-
-					case "9":
-						jieguo += "9";
-						document.getElementById("jieguo").value = jieguo;
-						break;
-
-					case "/":
-						if(yunsuan == "+") {
-							jieguo = parseFloat(jieguo1) + parseFloat(jieguo);
-						}
-						if(yunsuan == "-") {
-							jieguo = parseFloat(jieguo1) - parseFloat(jieguo);
-						}
-						if(yunsuan == "*") {
-							jieguo = parseFloat(jieguo1) * parseFloat(jieguo);
-						}
-						if(yunsuan == "/") {
-							jieguo = parseFloat(jieguo1) / parseFloat(jieguo);
-						}
-						if(jieguo == "") {
-							break;
-						}
-						document.getElementById("jieguo").value = jieguo;
-						yunsuan = "/"
-						jieguo1 = parseFloat(jieguo);
-						jieguo = "";
-						break;
-
-					case "%":
-						jieguo = "";
-						jieguo1 = "";
-						yunsuan = "";
-						yunsuan2 = "";
-						document.getElementById("jieguo").value = jieguo4;
-						break
-
-					case "4":
-						jieguo += "4";
-						document.getElementById("jieguo").value = jieguo;
-						break;
-
-					case "5":
-						jieguo += "5";
-						document.getElementById("jieguo").value = jieguo;
-						break;
-
-					case "6":
-						jieguo += "6";
-						document.getElementById("jieguo").value = jieguo;
-						break;
-					case "*":
-						if(yunsuan == "+") {
-							jieguo = parseFloat(jieguo1) + parseFloat(jieguo);
-						}
-						if(yunsuan == "-") {
-							jieguo = parseFloat(jieguo1) - parseFloat(jieguo);
-						}
-						if(yunsuan == "*") {
-							jieguo = parseFloat(jieguo1) * parseFloat(jieguo);
-						}
-						if(yunsuan == "/") {
-							jieguo = parseFloat(jieguo1) / parseFloat(jieguo);
-						}
-						if(jieguo == "") {
-							break;
-						}
-						yunsuan = "*";
-						document.getElementById("jieguo").value = jieguo;
-						jieguo1 = parseFloat(jieguo);
-						jieguo = "";
-						break;
-
-					case "1/x":
-						jieguo = 1 / (parseFloat(jieguo));
-						document.getElementById("jieguo").value = jieguo;
-						break;
-
-					case "1":
-						jieguo += "1";
-						document.getElementById("jieguo").value = jieguo;
-						break;
-
-					case "2":
-						jieguo += "2";
-						document.getElementById("jieguo").value = jieguo;
-						break;
-
-					case "3":
-						jieguo += "3";
-						document.getElementById("jieguo").value = jieguo;
-						break;
-
-					case "-":
-
-						if(yunsuan == "+") {
-							jieguo = parseFloat(jieguo1) + parseFloat(jieguo);
-						}
-						if(yunsuan == "-") {
-							jieguo = parseFloat(jieguo1) - parseFloat(jieguo);
-						}
-						if(yunsuan == "*") {
-							jieguo = parseFloat(jieguo1) * parseFloat(jieguo);
-						}
-						if(yunsuan == "/") {
-							jieguo = parseFloat(jieguo1) / parseFloat(jieguo);
-						}
-						if(jieguo == "") {
-							break;
-						}
-						yunsuan = "-";
-						document.getElementById("jieguo").value = jieguo;
-						jieguo1 = parseFloat(jieguo);
-						jieguo = "";
-						break;
-
-					case "+":
-						if(yunsuan == "+") {
-							jieguo = parseFloat(jieguo1) + parseFloat(jieguo);
-						}
-						if(yunsuan == "-") {
-							jieguo = parseFloat(jieguo1) - parseFloat(jieguo);
-						}
-						if(yunsuan == "*") {
-							jieguo = parseFloat(jieguo1) * parseFloat(jieguo);
-						}
-						if(yunsuan == "/") {
-							jieguo = parseFloat(jieguo1) / parseFloat(jieguo);
-						}
-						if(jieguo == "") {
-							break;
-						}
-						yunsuan = "+"
-						document.getElementById("jieguo").value = jieguo;
-						jieguo1 = parseFloat(jieguo);
-						jieguo = "";
-						break;
-
-					case "0":
-						if(jieguo == "0") {
-							break;
-						}
-						if(jieguo == "") {
-							document.getElementById("jieguo").value = 0;
-							break;
-						}
-						jieguo += "0";
-						document.getElementById("jieguo").value = jieguo;
-						break;
-
-					case ".":
-						if(yunsuan2 == ".") {
-							break;
-						}
-						yunsuan2 = ".";
-						if(jieguo == "") {
-							jieguo = "0" + "."
-							document.getElementById("jieguo").value = jieguo;
-							break;
-						}
-						jieguo += ".";
-						document.getElementById("jieguo").value = jieguo;
-						break;
-
-					case "=":
-						if(jieguo1 == 0) {
-							if(jieguo == "") {
-								document.getElementById("jieguo").value = jieguo1;
-								break;
-							}
-							document.getElementById("jieguo").value = jieguo;
-							break;
-						}
-						if(jieguo == "") {
-							document.getElementById("jieguo").value = jieguo1;
-							break;
-						}
-						if(yunsuan == "+") {
-							jieguo = parseFloat(jieguo1) + parseFloat(jieguo);
-						}
-						if(yunsuan == "-") {
-							jieguo = parseFloat(jieguo1) - parseFloat(jieguo);
-						}
-						if(yunsuan == "/") {
-							jieguo = parseFloat(jieguo1) / parseFloat(jieguo);
-						}
-						if(yunsuan == "*") {
-							jieguo = parseFloat(jieguo1) * parseFloat(jieguo);
-						}
-						if(yunsuan == "(") {
-							document.getElementById("jieguo").value = jieguo;
-							break;
-						}
-						if(yunsuan == "") {
-							jieguo5 = 0;
-							document.getElementById("jieguo").value = jieguo5;
-							break;
-						}
-						yunsuan = "(";
-
-						document.getElementById("jieguo").value = jieguo;
-						break;
-
-					default:
-						break;
-				}
-
-			}
-		</script>
 	</body>
 
 </html>
